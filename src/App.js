@@ -2,14 +2,15 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import productTile from './components/productTile';
+import { Link } from 'react-router-dom';
 
 
 
 class App extends React.Component {
-  componentDidMount()
-{ this.loadProducts()
-this.initCart();
- }
+  componentDidMount() {
+    this.loadProducts()
+    this.initCart();
+  }
 
   constructor(props) {
     super(props);
@@ -20,28 +21,26 @@ this.initCart();
       cart: []
     }
   }
-  initCart()
-  { let myCart = localStorage.getItem('cart')
-myCart = JSON.parse(myCart)
-this.setState({
-  cart: myCart || []
-})
-}
+  initCart() {
+    let myCart = localStorage.getItem('cart')
+    myCart = JSON.parse(myCart)
+    this.setState({
+      cart: myCart || []
+    })
+  }
 
-viewCart()
-{
-  console.log(this.state.cart)
-}
-  addToCart(product)
-  {
+  viewCart() {
+    console.log(this.state.cart)
+  }
+  addToCart(product) {
     const newCart = this.state.cart;
     newCart.push(product);
-   localStorage.setItem('cart',JSON.stringify(newCart))
-   this.setState({
+    localStorage.setItem('cart', JSON.stringify(newCart))
+    this.setState({
       cart: newCart
     })
   }
-  
+
 
   loadProducts() {
     let url = 'https://my-json-server.typicode.com/shiyasvp92/sample_products/products'
@@ -65,18 +64,20 @@ viewCart()
   }
   render() {
     const productsList = this.state.products.map((product) => {
-      return productTile(this.addToCart.bind(this), product)
+      return productTile(this.addToCart.bind(this),product)
     })
 
-    
+
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
           <a className="navbar-brand" href="#">Navbar</a>
-          
-          <button  className="right" type="button" onClick={()=>{this.viewCart();}}>
-            Cart({this.state.cart.length})
-        </button>
+
+          <Link to="/cart">
+            <button className="right" type="button" onClick={() => { this.viewCart(); }}>
+              Cart({this.state.cart.length})
+          </button>
+          </Link>
         </nav>
         <div className="container">
           <div className="row">

@@ -13,9 +13,12 @@ export default function productTile(addToCart,product){
               <h5 className="card-title" id="#first-title">{product.price}</h5>
               
               <div>
-                <button className="btn btn-primary add-btn"
-                onClick={()=>{ addToCart(product)}}
-                >add</button>
+                {
+                  addToCart &&
+                  <button className="btn btn-primary add-btn"
+                  onClick={()=>{ addToCart(product)}}
+                  >add</button>
+                }
               </div>
             </div>
           </div>
